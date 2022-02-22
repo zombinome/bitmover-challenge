@@ -5,24 +5,15 @@ namespace BitMover.Challenge.Mocks
 {
     public class LicenseRepository : ILicenseRepository
     {
-        private const string ConnectionString = "Data Source=InMemoryStorage;Mode=Memory;Cache=Shared";
-
         private const string LicenseKeyField = "LicenseKey";
         private const string LastUpdatedField = "LastUpdated";
         private const string IsDeadField = "IsDead";
         private const string AttemptsCountField = "AttemptsCount";
         private const string LicensesTable = "Licenses";
 
-        // Connection needed to keep database exist
-        private static readonly SqliteConnection _connection = new SqliteConnection(ConnectionString);
-        static LicenseRepository()
-        {
-            _connection.Open();
-        }
-
         public async Task<IReadOnlyCollection<License>> ListLicensesAsync(DateTime timestamp, int offset, int limit)
         {
-            using (var connection = new SqliteConnection(ConnectionString))
+            using (var connection = new SqliteConnection(InMemDb.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
@@ -63,7 +54,7 @@ namespace BitMover.Challenge.Mocks
 
         public async Task MarkLicenseDeadAsync(Guid licenseKey)
         {
-            using (var connection = new SqliteConnection(ConnectionString))
+            using (var connection = new SqliteConnection(InMemDb.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
@@ -80,7 +71,7 @@ namespace BitMover.Challenge.Mocks
 
         public async Task UpdateLicenceTimestampAsync(Guid licenseKey, DateTime timestamp)
         {
-            using (var connection = new SqliteConnection(ConnectionString))
+            using (var connection = new SqliteConnection(InMemDb.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
@@ -98,7 +89,7 @@ namespace BitMover.Challenge.Mocks
 
         public async Task IncrementFailureCountAsync(Guid licenseKey)
         {
-            using (var connection = new SqliteConnection(ConnectionString))
+            using (var connection = new SqliteConnection(InMemDb.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
@@ -115,7 +106,7 @@ namespace BitMover.Challenge.Mocks
 
         public static async Task Initialize(int count, int deadCount)
         {
-            using (var connection = new SqliteConnection(ConnectionString))
+            using (var connection = new SqliteConnection(InMemDb.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var createCommand = connection.CreateCommand())
@@ -133,11 +124,6 @@ namespace BitMover.Challenge.Mocks
                 await InsertLicensesAsync(connection, count, false);
                 await InsertLicensesAsync(connection, deadCount, true);
             }
-        }
-
-        public static async Task Finalize()
-        {
-            await _connection.CloseAsync();
         }
 
         private static async Task InsertLicensesAsync(SqliteConnection connection, int count, bool isDead)

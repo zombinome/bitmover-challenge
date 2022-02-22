@@ -9,18 +9,21 @@ namespace BitMover.Challenge.Service
         private readonly ILicenseRepository licenseRepository;
         private readonly IBillingMessageSender billingMessageSender;
         private readonly IAnalyticsApiClient analyticsApi;
-        private const int MaxAttemptsCount = 10;
+        private readonly ILockingRepository lockingRepository;
 
+        private const int MaxAttemptsCount = 10;
         private const int batchSize = 10;
 
         public BillingUpdateService(
             ILicenseRepository licenseRepository,
             IBillingMessageSender billingMessageSender,
-            IAnalyticsApiClient analyticsApi)
+            IAnalyticsApiClient analyticsApi,
+            ILockingRepository lockingRepository)
         {
             this.licenseRepository = licenseRepository;
             this.billingMessageSender = billingMessageSender;
             this.analyticsApi = analyticsApi;
+            this.lockingRepository = lockingRepository;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -48,7 +51,13 @@ namespace BitMover.Challenge.Service
                     {
                         break;
                     }
-                    await UpdateBillingAsync(license, timestamp);
+
+                    bool isLockAcquired = await this.lockingRepository.TryAccquireAsync(license.Key);
+                    if (isLockAcquired)
+                    {
+                        await UpdateBillingAsync(license, timestamp);
+                        await this.lockingRepository.ReleaseAsync(license.Key);
+                    }
                 }
 
                 offset += batchSize;

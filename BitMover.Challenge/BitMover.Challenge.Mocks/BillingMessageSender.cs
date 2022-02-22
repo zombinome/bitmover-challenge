@@ -8,7 +8,7 @@ namespace BitMover.Challenge.Mocks
         public Task SendMessageAsync(BillingMessage message)
         {
             var messageStr = JsonConvert.SerializeObject(message);
-            Console.WriteLine("Sent billing message: " + messageStr);
+            Console.WriteLine($"[{Thread.CurrentThread.Name}]: Sent billing message: {messageStr}");
             return Task.CompletedTask;
         }
     }
