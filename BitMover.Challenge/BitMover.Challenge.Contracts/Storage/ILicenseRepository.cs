@@ -2,9 +2,11 @@
 {
     public interface ILicenseRepository
     {
-        public Task<IEnumerable<Guid>> ListLicensesAsync(DateTime timestamp, int offset, int limit);
+        public Task<IReadOnlyCollection<License>> ListLicensesAsync(DateTime timestamp, int offset, int limit);
 
-        public Task UpdateLicenceTimestampAsync(Guid licenseKey);
+        public Task UpdateLicenceTimestampAsync(Guid licenseKey, DateTime timestamp);
+
+        public Task IncrementFailureCountAsync(Guid licenseKey);
 
         public Task MarkLicenseDeadAsync(Guid licenceKey);
     }

@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -9,8 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BitMover.Challenge.Contracts\BitMover.Challenge.Contracts.csproj" />
-    <ProjectReference Include="..\BitMover.Challenge.Mocks\BitMover.Challenge.Mocks.csproj" />
-    <ProjectReference Include="..\BitMover.Challenge.Service\BitMover.Challenge.Service.csproj" />
   </ItemGroup>
 
 </Project>
