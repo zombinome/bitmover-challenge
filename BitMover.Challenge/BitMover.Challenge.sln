@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitMover.Challenge.Console"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitMover.Challenge.Contracts", "BitMover.Challenge.Contracts\BitMover.Challenge.Contracts.csproj", "{7F4BD66B-3BA3-40A1-9EC4-26701270DA72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitMover.Challenge.Mocks", "BitMover.Challenge.Mocks\BitMover.Challenge.Mocks.csproj", "{78E80FDC-DDD6-4F80-9420-ADCAD2BCE320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7F4BD66B-3BA3-40A1-9EC4-26701270DA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F4BD66B-3BA3-40A1-9EC4-26701270DA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F4BD66B-3BA3-40A1-9EC4-26701270DA72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E80FDC-DDD6-4F80-9420-ADCAD2BCE320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E80FDC-DDD6-4F80-9420-ADCAD2BCE320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E80FDC-DDD6-4F80-9420-ADCAD2BCE320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E80FDC-DDD6-4F80-9420-ADCAD2BCE320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
